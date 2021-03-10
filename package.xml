@@ -8,6 +8,8 @@
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>cnr_logger</build_depend>
   <build_depend>controller_manager</build_depend>
   <build_depend>diagnostic_msgs</build_depend>
   <build_depend>diagnostic_updater</build_depend>
@@ -34,13 +36,10 @@
   <run_depend>realtime_utilities</run_depend>
   <run_depend>pluginlib</run_depend>
 
-
   <build_depend>code_coverage</build_depend>
   <build_depend>rostest</build_depend>
   
   <!-- The export tag contains other, unspecified, tags -->
   <export>
-    <!-- nodelet plugin="${prefix}/plugin.xml" />
-    <cnr_hardware_interface plugin="${prefix}/plugin.xml" /-->
   </export>
 </package>
