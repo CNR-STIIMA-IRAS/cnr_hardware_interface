@@ -408,6 +408,19 @@ bool RobotHW::exitPrepareSwitch()
   return dump_state(cnr_hardware_interface::RUNNING);
 }
 
+bool RobotHW::enterDoSwitch(const std::list< hardware_interface::ControllerInfo >& start_list,
+                                 const std::list< hardware_interface::ControllerInfo >& stop_list)
+{
+  CNR_TRACE_START(m_logger);
+  CNR_RETURN_TRUE(m_logger);
+}
+
+bool RobotHW::exitDoSwitch()
+{
+  CNR_TRACE_START(m_logger);
+  CNR_RETURN_TRUE(m_logger);
+}
+
 bool RobotHW::enterCheckForConflict(const std::list< hardware_interface::ControllerInfo >& info) const
 {
   // Each controller can use more than a hardware_interface for a single joint (for example: position, velocity, effort)
