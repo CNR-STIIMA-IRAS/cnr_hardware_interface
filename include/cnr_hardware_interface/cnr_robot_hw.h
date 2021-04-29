@@ -94,6 +94,8 @@ public:
   void write(const ros::Time& time, const ros::Duration& period) final;
   bool prepareSwitch(const std::list< hardware_interface::ControllerInfo >& start_list,
                      const std::list< hardware_interface::ControllerInfo >& stop_list) final;
+  void doSwitch(const std::list<hardware_interface::ControllerInfo>& start_list,
+                const std::list<hardware_interface::ControllerInfo>& stop_list) final;
   bool checkForConflict(const std::list< hardware_interface::ControllerInfo >& info) const final;
   bool shutdown();
   // ======================================================= End - final methods
@@ -136,6 +138,12 @@ public:
   {
     return true;
   }
+  virtual bool doDoSwitch(const std::list<hardware_interface::ControllerInfo>& /*start_list*/,
+                          const std::list<hardware_interface::ControllerInfo>& /*stop_list*/)
+  {
+    return true;
+  }
+
   virtual bool doCheckForConflict(const std::list< hardware_interface::ControllerInfo >& /*info*/) const
   {
     return false;
@@ -177,12 +185,15 @@ private:
   virtual bool enterWrite();
   virtual bool enterPrepareSwitch(const std::list< hardware_interface::ControllerInfo >& start_list,
                                   const std::list< hardware_interface::ControllerInfo >& stop_list);
+  virtual bool enterDoSwitch(const std::list<hardware_interface::ControllerInfo>& start_list,
+                             const std::list<hardware_interface::ControllerInfo>& stop_list);
   virtual bool enterCheckForConflict(const std::list< hardware_interface::ControllerInfo >& info) const;
 
   virtual bool exitInit();
   virtual bool exitShutdown();
   virtual bool exitWrite();
   virtual bool exitPrepareSwitch();
+  virtual bool exitDoSwitch();
   virtual bool exitCheckForConflict() const
   {
     return false;

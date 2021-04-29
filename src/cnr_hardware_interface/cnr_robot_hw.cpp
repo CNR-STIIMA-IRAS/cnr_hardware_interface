@@ -211,6 +211,36 @@ bool RobotHW::prepareSwitch(const std::list< hardware_interface::ControllerInfo 
   CNR_RETURN_TRUE(m_logger, "************************ SWITCH OF CONTROLLERS - END **********************************");
 }
 
+
+void RobotHW::doSwitch(const std::list<hardware_interface::ControllerInfo>& start_list,
+                       const std::list<hardware_interface::ControllerInfo>& stop_list)
+{
+  CNR_TRACE_START(m_logger, "************************ DO SWITCH OF CONTROLLERS (IN RT UPDATE) ****************************************");
+  CNR_DEBUG(m_logger, "RobotHW '" << m_robothw_nh.getNamespace()
+                        << "' Status " <<  cnr_hardware_interface::to_string(m_status));
+  if(m_status==cnr_hardware_interface::ERROR
+  || m_status==cnr_hardware_interface::CTRL_ERROR
+  || m_status==cnr_hardware_interface::SRV_ERROR)
+  {
+    CNR_ERROR(m_logger, "The controller switch is not possible, since the RobotHw is in ERROR state.");
+    CNR_RETURN_NOTOK(m_logger, void());
+  }
+  if(!enterDoSwitch(start_list, stop_list))
+  {
+    CNR_RETURN_NOTOK(m_logger, void());
+  }
+  if(!doDoSwitch(start_list, stop_list))
+  {
+    CNR_RETURN_NOTOK(m_logger, void());
+  }
+  if(!exitDoSwitch())
+  {
+    CNR_RETURN_NOTOK(m_logger, void());
+  }
+  CNR_RETURN_NOTOK(m_logger, void(), "************************ DO SWITCH OF CONTROLLERS (IN RT UPDATE)- END **********************************");
+}
+
+
 bool RobotHW::checkForConflict(const std::list< hardware_interface::ControllerInfo >& info) const
 {
   CNR_TRACE_START(m_logger);
