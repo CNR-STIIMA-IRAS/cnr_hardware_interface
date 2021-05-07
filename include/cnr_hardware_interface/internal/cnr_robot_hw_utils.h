@@ -48,28 +48,26 @@ typedef cnr_hardware_interface::EnumIterator< cnr_hardware_interface::tagStatusH
                                               cnr_hardware_interface::tagStatusHw::UNLOADED,
                                               cnr_hardware_interface::tagStatusHw::SRV_ERROR> StatusHwIterator;
 
-inline std::string last_status_param(const std::string& hw_name)
+inline std::string hw_last_status_param_name(const std::string& hw_name)
 {
   return "/" + hw_name + "/status/last_status";
 }
-inline std::string status_param(const std::string& hw_name)
+inline std::string hw_status_param_name(const std::string& hw_name)
 {
   return "/" + hw_name + "/status/status";
 }
 
 inline
-bool get_state(ros::NodeHandle& nh,
-               const std::string& hw_name,
-               cnr_hardware_interface::StatusHw& status,
-               const ros::Duration& watchdog, std::string& error)
+bool hw_get_state(ros::NodeHandle& nh, const std::string& hw_name, cnr_hardware_interface::StatusHw& status,
+                    const ros::Duration& watchdog, std::string& error)
 {
   std::string state;
   ros::Time st = ros::Time::now();
-  error += " GET_STATE: nh: " + nh.getNamespace() + " param: " + last_status_param(hw_name);
+  error += " GET_STATE: nh: " + nh.getNamespace() + " param: " + hw_last_status_param_name(hw_name);
   bool ok = false;
   do
   {
-    if (nh.getParam(last_status_param(hw_name), state))
+    if (nh.getParam(hw_last_status_param_name(hw_name), state))
     {
       for (const StatusHw& it : StatusHwIterator())
       {
@@ -94,25 +92,23 @@ bool get_state(ros::NodeHandle& nh,
 }
 
 inline
-bool set_state(ros::NodeHandle& nh, const std::string& hw_name, const cnr_hardware_interface::StatusHw& status)
+bool hw_set_state(ros::NodeHandle& nh, const std::string& hw_name, const cnr_hardware_interface::StatusHw& status)
 {
-  nh.setParam(status_param(hw_name), cnr_hardware_interface::to_string(status));
+  nh.setParam(hw_status_param_name(hw_name), cnr_hardware_interface::to_string(status));
   return true;
 }
 
 
 inline
-bool get_state(ros::NodeHandle& nh,
-               const std::vector<std::string> &hw_names,
-               std::vector<cnr_hardware_interface::StatusHw>& status,
-               std::string& error,
-               const ros::Duration& watchdog)
+bool hw_get_state(ros::NodeHandle& nh, const std::vector<std::string> &hw_names, 
+                    std::vector<cnr_hardware_interface::StatusHw>& status, std::string& error, 
+                      const ros::Duration& watchdog)
 {
   status.clear();
   for (auto const & hw_name : hw_names)
   {
     cnr_hardware_interface::StatusHw st;
-    if (!get_state(nh, hw_name, st, watchdog, error))
+    if (!hw_get_state(nh, hw_name, st, watchdog, error))
     {
       error = "RobotHW (" + hw_name + ") Error Status";
       return false;

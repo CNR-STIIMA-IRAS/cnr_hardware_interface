@@ -486,8 +486,8 @@ bool RobotHW::dump_state() const
     if(m_status_history.back() != last_status)
     {
       m_status_history.push_back(last_status);
-      m_robothw_nh.setParam(last_status_param(m_robothw_nh.getNamespace()), last_status);
-      m_robothw_nh.setParam(status_param(m_robothw_nh.getNamespace()), m_status_history);
+      m_robothw_nh.setParam(hw_last_status_param_name(m_robothw_nh.getNamespace()), last_status);
+      m_robothw_nh.setParam(hw_status_param_name(m_robothw_nh.getNamespace()), m_status_history);
       CNR_DEBUG(m_logger, "RobotHW '" << m_robothw_nh.getNamespace()
                             << "' New Status " <<  cnr_hardware_interface::to_string(m_status));
     }
