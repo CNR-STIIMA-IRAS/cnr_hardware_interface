@@ -215,7 +215,7 @@ bool RobotHW::prepareSwitch(const std::list< hardware_interface::ControllerInfo 
 void RobotHW::doSwitch(const std::list<hardware_interface::ControllerInfo>& start_list,
                        const std::list<hardware_interface::ControllerInfo>& stop_list)
 {
-  CNR_TRACE_START(m_logger, "************************ DO SWITCH OF CONTROLLERS (IN RT UPDATE) ****************************************");
+  CNR_TRACE_START(m_logger,"************** DO SWITCH OF CONTROLLERS (IN RT UPDATE) *****************************");
   CNR_DEBUG(m_logger, "RobotHW '" << m_robothw_nh.getNamespace()
                         << "' Status " <<  cnr_hardware_interface::to_string(m_status));
   if(m_status==cnr_hardware_interface::ERROR
@@ -237,7 +237,7 @@ void RobotHW::doSwitch(const std::list<hardware_interface::ControllerInfo>& star
   {
     CNR_RETURN_NOTOK(m_logger, void());
   }
-  CNR_RETURN_OK(m_logger, void(), "************************ DO SWITCH OF CONTROLLERS (IN RT UPDATE)- END **********************************");
+  CNR_RETURN_OK(m_logger, void(), "************** DO SWITCH OF CONTROLLERS (IN RT UPDATE)- END ************************");
 }
 
 
