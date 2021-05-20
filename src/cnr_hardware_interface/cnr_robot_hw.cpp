@@ -46,7 +46,7 @@
 #include <cnr_hardware_interface/cnr_robot_hw.h>
 
 #define GENERATE_ENUM_STRINGS  // Start string generation
-#include <cnr_hardware_interface/internal/cnr_robot_hw_status.h>
+#include <cnr_hardware_interface/cnr_robot_hw_status.h>
 #undef GENERATE_ENUM_STRINGS   // Stop string generation
 
 namespace cnr_hardware_interface
@@ -237,7 +237,7 @@ void RobotHW::doSwitch(const std::list<hardware_interface::ControllerInfo>& star
   {
     CNR_RETURN_NOTOK(m_logger, void());
   }
-  CNR_RETURN_NOTOK(m_logger, void(), "************************ DO SWITCH OF CONTROLLERS (IN RT UPDATE)- END **********************************");
+  CNR_RETURN_OK(m_logger, void(), "************************ DO SWITCH OF CONTROLLERS (IN RT UPDATE)- END **********************************");
 }
 
 
