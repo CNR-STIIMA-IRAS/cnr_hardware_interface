@@ -137,6 +137,7 @@ bool RobotHW::init(ros::NodeHandle& root_nh, ros::NodeHandle &robothw_nh)
     ROS_ERROR("Error in creating the logger");
     return false;
   }
+  
   CNR_TRACE_START(m_logger);
   if(enterInit(root_nh, robothw_nh) && doInit() && exitInit())
   {
