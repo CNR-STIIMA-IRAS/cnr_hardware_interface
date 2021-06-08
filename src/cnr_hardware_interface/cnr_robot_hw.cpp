@@ -237,7 +237,7 @@ void RobotHW::doSwitch(const std::list<hardware_interface::ControllerInfo>& star
   {
     CNR_RETURN_NOTOK(m_logger, void());
   }
-  CNR_RETURN_NOTOK(m_logger, void(), "************************ DO SWITCH OF CONTROLLERS (IN RT UPDATE)- END **********************************");
+  CNR_RETURN_OK(m_logger, void(), "************************ DO SWITCH OF CONTROLLERS (IN RT UPDATE)- END **********************************");
 }
 
 
