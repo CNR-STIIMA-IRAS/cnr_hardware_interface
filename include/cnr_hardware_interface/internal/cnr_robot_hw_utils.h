@@ -38,7 +38,7 @@
 #include <string>
 #include <vector>
 #include <ros/ros.h>
-#include <cnr_hardware_interface/internal/cnr_robot_hw_status.h>
+#include <cnr_hardware_interface/cnr_robot_hw_status.h>
 
 namespace cnr_hardware_interface
 {

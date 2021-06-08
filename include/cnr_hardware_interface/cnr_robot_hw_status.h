@@ -49,14 +49,16 @@ namespace cnr_hardware_interface
 BEGIN_ENUM(StatusHw)
 {
   DECL_ENUM_ELEMENT(UNLOADED),
-                    DECL_ENUM_ELEMENT(CREATED),
-                    DECL_ENUM_ELEMENT(INITIALIZED),
-                    DECL_ENUM_ELEMENT(READY),
-                    DECL_ENUM_ELEMENT(RUNNING),
-                    DECL_ENUM_ELEMENT(SHUTDOWN),
-                    DECL_ENUM_ELEMENT(ERROR),
-                    DECL_ENUM_ELEMENT(CTRL_ERROR),
-                    DECL_ENUM_ELEMENT(SRV_ERROR)
+  DECL_ENUM_ELEMENT(CREATED),
+  DECL_ENUM_ELEMENT(INITIALIZED),
+  DECL_ENUM_ELEMENT(READY),
+  DECL_ENUM_ELEMENT(RUNNING),
+  DECL_ENUM_ELEMENT(SHUTDOWN),
+  DECL_ENUM_ELEMENT(ERROR),
+  DECL_ENUM_ELEMENT(CTRL_ERROR),
+  DECL_ENUM_ELEMENT(SRV_ERROR),
+  DECL_ENUM_ELEMENT(UNKOWN),  // if the standard hardware_interface::RobotHW is used and 
+                              // not the cnr_hardware_itnerface::RobotHW
 }
 END_ENUM(StatusHw);
 

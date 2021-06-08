@@ -52,7 +52,7 @@
 #include <hardware_interface/robot_hw.h>
 #include <configuration_msgs/SetConfig.h>
 #include <configuration_msgs/GetConfig.h>
-#include <cnr_hardware_interface/internal/cnr_robot_hw_status.h>
+#include <cnr_hardware_interface/cnr_robot_hw_status.h>
 #include <cnr_hardware_interface/internal/cnr_robot_hw_utils.h>
 
 
