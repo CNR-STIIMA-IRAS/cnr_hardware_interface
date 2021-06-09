@@ -56,9 +56,10 @@ inline
 void get_resource_names(ros::NodeHandle& nh, std::vector<std::string>& names)
 {
   std::vector<std::string> alternative_keys =
-    { "controlled_resources", "controlled_resource", 
-      "controlled_joints", "controlled_joint", 
-      "joint_names", "joint_name", 
+    { "controlled_resources", "controlled_resource",
+      "controlled_joints", "controlled_joint",
+      "joint_names", "joint_name",
+//      "joints", "joint"
       "joint_resource/joint_names", "joint_resource/joint_name"
       "joint_resource/controlled_joints", "joint_resource/controlled_joint"
       "joint_resource/controlled_resources", "joint_resource/controlled_resource"
