@@ -93,9 +93,12 @@ public:
   void read(const ros::Time& time, const ros::Duration& period) final;
   void write(const ros::Time& time, const ros::Duration& period) final;
   bool prepareSwitch(const std::list< hardware_interface::ControllerInfo >& start_list,
-                     const std::list< hardware_interface::ControllerInfo >& stop_list) final;
+                      const std::list< hardware_interface::ControllerInfo >& stop_list) final;
   void doSwitch(const std::list<hardware_interface::ControllerInfo>& start_list,
-                const std::list<hardware_interface::ControllerInfo>& stop_list) final;
+                  const std::list<hardware_interface::ControllerInfo>& stop_list) final;
+
+  SwitchState switchResult() const final;
+  SwitchState switchResult(const hardware_interface::ControllerInfo& controller) const final;
   bool checkForConflict(const std::list< hardware_interface::ControllerInfo >& info) const final;
   bool shutdown();
   // ======================================================= End - final methods
@@ -160,11 +163,11 @@ public:
   size_t resourceNumber() const {return m_resource_names.size();}
   // =======================================================
 
-  // ======================================================= utils
 
-  const cnr_hardware_interface::StatusHw&  getStatus() const
+  // ======================================================= utils
+  const cnr_hardware_interface::StatusHw&  getState() const
   {
-    return m_status;
+    return m_state;
   }
   const std::string& getRobotHwNamespace() const
   {
@@ -176,28 +179,11 @@ protected:
   virtual bool setParamServer(configuration_msgs::SetConfigRequest& req, configuration_msgs::SetConfigResponse& res);
   virtual bool getParamServer(configuration_msgs::GetConfigRequest& req, configuration_msgs::GetConfigResponse& res);
 
-  bool dump_state(const cnr_hardware_interface::StatusHw& status) const;
-  bool dump_state() const;
+  bool setState(const cnr_hardware_interface::StatusHw& status) const;
 
 private:
   virtual bool enterInit(ros::NodeHandle& root_nh, ros::NodeHandle &robot_hw_nh);
-  virtual bool enterShutdown();
-  virtual bool enterWrite();
-  virtual bool enterPrepareSwitch(const std::list< hardware_interface::ControllerInfo >& start_list,
-                                  const std::list< hardware_interface::ControllerInfo >& stop_list);
-  virtual bool enterDoSwitch(const std::list<hardware_interface::ControllerInfo>& start_list,
-                             const std::list<hardware_interface::ControllerInfo>& stop_list);
-  virtual bool enterCheckForConflict(const std::list< hardware_interface::ControllerInfo >& info) const;
-
   virtual bool exitInit();
-  virtual bool exitShutdown();
-  virtual bool exitWrite();
-  virtual bool exitPrepareSwitch();
-  virtual bool exitDoSwitch();
-  virtual bool exitCheckForConflict() const
-  {
-    return false;
-  }
 
 protected:
 
@@ -216,8 +202,9 @@ protected:
   bool                                             m_stop_thread;
 
   bool                                             m_is_first_read;
-  mutable cnr_hardware_interface::StatusHw         m_status;
-  mutable std::vector<std::string>                 m_status_history;
+  mutable cnr_hardware_interface::StatusHw         m_state;
+  mutable cnr_hardware_interface::StatusHw         m_state_prev;
+  //mutable std::vector<std::string>                 m_state_history;
   
   std::list< hardware_interface::ControllerInfo >  m_active_controllers;
   bool                                             m_shutted_down;
