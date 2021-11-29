@@ -13,16 +13,17 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(catkin REQUIRED COMPONENTS
   cnr_logger
-  controller_manager
+  rosparam_utilities
+  #controller_manager
   diagnostic_updater
   diagnostic_msgs
   hardware_interface
-  nodelet
-  roscpp
+  #nodelet
+  #roscpp
   sensor_msgs
   configuration_msgs
   realtime_utilities
-  pluginlib
+  #pluginlib
   roslint
 )
 
@@ -36,15 +37,16 @@ catkin_package(
  INCLUDE_DIRS   include
  LIBRARIES      cnr_hardware_interface
  CATKIN_DEPENDS cnr_logger
-                controller_manager
+                rosparam_utilities
+                #controller_manager
                 diagnostic_updater 
                 diagnostic_msgs 
                 hardware_interface
-                nodelet roscpp
+                #nodelet roscpp
                 sensor_msgs
                 configuration_msgs
                 realtime_utilities
-                pluginlib
+                #pluginlib
 )
 
 include_directories   (include include/internal ${catkin_INCLUDE_DIRS} )

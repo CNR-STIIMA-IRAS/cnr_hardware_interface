@@ -41,6 +41,7 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 #include <ros/ros.h>
+#include <rosparam_utilities/rosparam_utilities.h>
 #include <cnr_logger/cnr_logger.h>
 #include <cnr_hardware_interface/internal/vector_to_string.h>
 #include <cnr_hardware_interface/cnr_robot_hw.h>
@@ -69,9 +70,10 @@ void get_resource_names(ros::NodeHandle& nh, std::vector<std::string>& names)
   for(auto const & key : alternative_keys)
   {
     bool ok = false;
+    std::string what;
     try
     {
-      ok = nh.getParam(key, names);
+      ok = rosparam_utilities::get(nh.getNamespace() + "/" + key, names, what);
     }
     catch(const std::exception& e)
     {
@@ -84,7 +86,7 @@ void get_resource_names(ros::NodeHandle& nh, std::vector<std::string>& names)
       try 
       {
         std::string joint_name;
-        if(nh.getParam(key, joint_name))
+        if(rosparam_utilities::get(nh.getNamespace() + "/" + key, joint_name, what))
         {
           names.push_back(joint_name);
         }
@@ -411,7 +413,8 @@ bool RobotHW::enterInit(ros::NodeHandle& root_nh, ros::NodeHandle& robothw_nh)
   }
   CNR_DEBUG(m_logger, "Resources: " << cnr_hardware_interface::to_string(m_resource_names));
 
-  if(!m_robothw_nh.getParam("sampling_period", m_sampling_period))
+  std::string what;
+  if(!rosparam_utilities::get(m_robothw_nh.getNamespace() + "/sampling_period", m_sampling_period, what))
   {
     m_sampling_period = 1e-3;
     CNR_WARN(m_logger, "Sampling period not found");
