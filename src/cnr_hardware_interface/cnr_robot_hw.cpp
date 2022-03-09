@@ -136,7 +136,7 @@ bool RobotHW::init(ros::NodeHandle& root_nh, ros::NodeHandle &robothw_nh)
   std::replace(n.begin(), n.end(), '/', '_');
 
   std::string what;
-  if (!m_logger.init_logger(n, robothw_nh.getNamespace(), false, false, &what))
+  if (!m_logger.init(n, robothw_nh.getNamespace(), false, false, &what))
   {
     std::cerr << __PRETTY_FUNCTION__ << ":" << "Error in creating the logger!" << std::endl;
     std::cerr <<  "what:" << what << std::endl;
